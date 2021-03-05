@@ -108,9 +108,6 @@ $app->get('/callback', function(Request $request) use($app, $openidParams, $open
         return $app->redirect('/prepare?show='.$app['session']->get('prepareShow'));
   }
 
-
-  }
-
   return $app->redirect('/');
 
 });
