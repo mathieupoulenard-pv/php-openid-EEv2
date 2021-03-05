@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block connexion %}
+{% if app.session.get('user') is null %}
+<ul class="nav navbar-nav navbar-right">
+      <li class="navbar-right">
+        <a href="{{ openidConfArray.authorization_endpoint }}?response_type=code&client_id={{ openidParams.client_id }}&redirect_uri={{ openidParams.client_redirect_url }}&state=hp"><span class="glyphicon glyphicon-book"></span> Connexion</a>
+      </li>
+</ul>
+{% else %}
+<ul class="nav navbar-nav navbar-right">
+      <li class="navbar-right">
+        <a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Déconnexion</a>
+      </li>
+      <li class="navbar-right">
+        <a href="{{ openidConfArray.issuer }}"><span class="glyphicon glyphicon-book"></span> Vous êtes connecté : {{ app.session.get('user').name }} </a>
+      </li>
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>Bienvenue sur votre espace Eole !</h1>
+
+<br/>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#openid">
+  Voir la config Openid-connect
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="openid" tabindex="-1" role="dialog" aria-labelledby="openidLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="openidLabel">Openid Connect Configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Configuration connected app : <br/>
+        {{ dump(openidParams) }}
+        <br/>
+        <br/>
+        Quelques paramètres : <br/>
+        Authorization Endpoint : {{ dump(openidConfArray.authorization_endpoint) }} <br/>
+        Token Endpoint : {{ dump(openidConfArray.token_endpoint) }} <br/>
+        User Info Endpoint : {{ dump(openidConfArray.userinfo_endpoint) }} <br/>
+        <br/>
+        <br/>
+        Configuration : <br/>
+        {{ dump(openidConf) }}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if app.session.get('user') is not null %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userinfo">
+  Voir userinfo
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="userinfo" tabindex="-1" role="dialog" aria-labelledby="openidLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="openidLabel">Userinfo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Token response : {{ dump(app.session.get('token')) }} <br/>
+        <br/>
+        Access token user for API : {{ app.session.get('accessToken') }} <br/>
+        <br/>
+        User info : <br/>
+        {{ dump(app.session.get('user')) }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
