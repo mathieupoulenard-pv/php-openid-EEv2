@@ -23,7 +23,14 @@
 <h1>Bienvenue sur votre espace Eole !</h1>
 
 <br/>
+{% if app.session.get('user') is not null %}
+<h2>Vos infos :</h2>
+<p>AppAccess : {{ app.session.get('user').custom_attributes.AppAccess }}</p>
+<p>AccountGSMId : {{ app.session.get('user').custom_attributes.AccountGSMId }} </p>
+<p>ContactGSMId : {{ app.session.get('user').custom_attributes.ContactGSMId }}</p>
+<p>GSMRecordId : {{ app.session.get('user').custom_attributes.GSMRecordId }}</p>
 
+{% endif %}
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#openid">
