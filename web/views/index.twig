@@ -30,22 +30,27 @@
 <p>Contact Email : {{ app.session.get('user').custom_attributes.ContactEmail }} </p>
 
 
-<form>
-  <div class="form-group" action="/searchContact" method="get">
+<form action="/searchContact" method="get">
+  <div class="form-group">
     <label for="exampleInputEmail1">Rechercher un contact par mail</label>
     <input type="email" class="form-control" id="contactEmail" placeholder="Enter email">
   </div>
   <button type="submit" class="btn btn-primary">Rechercher</button>
 </form>
-
-
-<form>
-  <div class="form-group" action="/getContactByEBMSId" method="get">
+<hr/>
+<br/>
+<br/>
+<br/>
+<form  action="/getContactByEBMSId" method="get">>
+  <div class="form-group"
     <label for="exampleInputEmail1">Info d'un contact EBMS dans Salesforce</label>
-    <input type="email" class="form-control" id="contactEBMSId" placeholder="Enter email">
+    <input type="text" class="form-control" id="contactEBMSId" placeholder="Enter Id EBMS">
   </div>
   <button type="submit" class="btn btn-primary">Info</button>
 </form>
+<br/>
+<br/>
+<br/>
 {% endif %}
 
 <!-- Button trigger modal -->
