@@ -144,6 +144,30 @@ $app->get('/getContactByEBMSId', function(Request $request) use($app) {
 ]);
 });
 
+$app->get('/getContactBySFId', function(Request $request) use($app) {
+
+  $app['monolog']->addDebug('getContactByEBMSId');
+
+
+  $client = HttpClient::create();
+  $userInfo = $app['session']->get('user');
+  $accessToken = $app['session']->get('accessToken');
+
+  // Get contact Info
+  $contactResponse = $client->request('GET', preg_replace("/{version}/", API_VERSION, $userInfo["urls"]["sobjects"])."Contact/" . $request->query->get('contactId'), [
+    'headers' => [
+      'Authorization' => "Bearer " . $accessToken
+    ]
+  ]);
+  
+
+  dump($contactResponse->toArray());die;
+
+  return $app['twig']->render('contact.twig', [
+    'contact' => $contactResponse
+]);
+});
+
 
 
 $app->run();
