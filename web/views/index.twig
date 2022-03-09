@@ -32,25 +32,20 @@
 
 <form action="/searchContact" method="get">
   <div class="form-group">
-    <label for="exampleInputEmail1">Rechercher un contact par mail</label>
-    <input type="email" class="form-control" id="contactEmail" placeholder="Enter email">
+    <label for="contactEmail">Rechercher un contact par mail</label>
+    <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="Enter email">
   </div>
   <button type="submit" class="btn btn-primary">Rechercher</button>
 </form>
 <hr/>
-<br/>
-<br/>
-<br/>
-<form  action="/getContactByEBMSId" method="get">>
-  <div class="form-group"
-    <label for="exampleInputEmail1">Info d'un contact EBMS dans Salesforce</label>
-    <input type="text" class="form-control" id="contactEBMSId" placeholder="Enter Id EBMS">
+<form  action="/getContactByEBMSId" method="get">
+  <div class="form-group">
+    <label for="contactEBMSId">Info d'un contact EBMS dans Salesforce</label>
+    <input type="text" class="form-control" id="contactEBMSId" name="contactEBMSId" placeholder="Enter Id EBMS">
   </div>
   <button type="submit" class="btn btn-primary">Info</button>
 </form>
-<br/>
-<br/>
-<br/>
+<hr/>
 {% endif %}
 
 <!-- Button trigger modal -->
