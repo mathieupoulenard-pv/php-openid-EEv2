@@ -27,6 +27,25 @@
 <h2>Vos infos :</h2>
 <p>AppAccess : {{ app.session.get('user').custom_attributes.AppAccess }}</p>
 <p>EBMSId : {{ app.session.get('user').custom_attributes.EBMSId }} </p>
+<p>Contact Email : {{ app.session.get('user').custom_attributes.ContactEmail }} </p>
+
+
+<form>
+  <div class="form-group" action="/searchContact" method="get">
+    <label for="exampleInputEmail1">Rechercher un contact par mail</label>
+    <input type="email" class="form-control" id="contactEmail" placeholder="Enter email">
+  </div>
+  <button type="submit" class="btn btn-primary">Rechercher</button>
+</form>
+
+
+<form>
+  <div class="form-group" action="/getContactByEBMSId" method="get">
+    <label for="exampleInputEmail1">Info d'un contact EBMS dans Salesforce</label>
+    <input type="email" class="form-control" id="contactEBMSId" placeholder="Enter email">
+  </div>
+  <button type="submit" class="btn btn-primary">Info</button>
+</form>
 {% endif %}
 
 <!-- Button trigger modal -->
