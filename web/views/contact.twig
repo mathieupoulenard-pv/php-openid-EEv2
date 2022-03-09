@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block connexion %}
+{% if app.session.get('user') is null %}
+<ul class="nav navbar-nav navbar-right">
+      <li class="navbar-right">
+        <a href="{{ openidConfArray.authorization_endpoint }}?response_type=code&client_id={{ openidParams.client_id }}&redirect_uri={{ openidParams.client_redirect_url }}&state=hp"><span class="glyphicon glyphicon-book"></span> Connexion</a>
+      </li>
+</ul>
+{% else %}
+<ul class="nav navbar-nav navbar-right">
+      <li class="navbar-right">
+        <a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Déconnexion</a>
+      </li>
+      <li class="navbar-right">
+        <a href="{{ openidConfArray.issuer }}"><span class="glyphicon glyphicon-book"></span> Vous êtes connecté : {{ app.session.get('user').name }} </a>
+      </li>
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>Bienvenue sur votre espace EEv2.pv !</h1>
+
+<br/>
+
+<h2>Info contact</h2>
+{{ dump(contact)}}
+
+
+{% endblock %}

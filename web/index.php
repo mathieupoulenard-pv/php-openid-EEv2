@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-const API_VERSION = "48.0";
+const API_VERSION = "54.0";
 
 $app = new Silex\Application();
 $app['debug'] = true;
@@ -117,6 +117,31 @@ $app->get('/logout', function(Request $request) use($app, $openidParams, $openid
   $app['monolog']->addDebug('logout');
   $app['session']->invalidate();
   return $app->redirect($openidConf->toArray()['end_session_endpoint']);
+});
+
+
+$app->get('/getContactByEBMSId', function(Request $request) use($app) {
+
+  $app['monolog']->addDebug('getContactByEBMSId');
+
+
+  $client = HttpClient::create();
+  $userInfo = $app['session']->get('user');
+  $accessToken = $app['session']->get('accessToken');
+
+  // Get contact Info
+  $contactResponse = $client->request('GET', preg_replace("/{version}/", API_VERSION, $userInfo["urls"]["sobjects"])."Contact/Tech_Id_Historique__c" . $request->query->get('contactEBMSId'), [
+    'headers' => [
+      'Authorization' => "Bearer " . $accessToken
+    ]
+  ]);
+  
+
+  dump($contactResponse->toArray());die;
+
+  return $app['twig']->render('contact.twig', [
+    'contact' => $contactResponse
+]);
 });
 
 
