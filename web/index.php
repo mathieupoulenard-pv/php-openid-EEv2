@@ -130,7 +130,7 @@ $app->get('/getContactByEBMSId', function(Request $request) use($app) {
   $accessToken = $app['session']->get('accessToken');
 
   // Get contact Info
-  $contactResponse = $client->request('GET', preg_replace("/{version}/", API_VERSION, $userInfo["urls"]["sobjects"])."Contact/Tech_Id_Historique__c" . $request->query->get('contactEBMSId'), [
+  $contactResponse = $client->request('GET', preg_replace("/{version}/", API_VERSION, $userInfo["urls"]["sobjects"])."Contact/Tech_Id_Historique__c/" . $request->query->get('contactEBMSId'), [
     'headers' => [
       'Authorization' => "Bearer " . $accessToken
     ]
